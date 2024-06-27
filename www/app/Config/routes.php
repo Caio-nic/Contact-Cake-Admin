@@ -30,7 +30,7 @@
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
-Router::connect('/', array('controller' => 'logins', 'action' => 'add'));
+Router::connect('/', array('controller' => 'users', 'action' => 'login'));
 Router::connect('/register', array('controller' => 'users', 'action' => 'add'));
 
 // Router::connect('/contacts', array('controller' => 'contacts', 'action' => 'add'));

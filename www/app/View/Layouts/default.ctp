@@ -30,7 +30,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				</div>
 				<div class="menu">
 					<?php
-					 echo $this->Html->link('Login', array('controller' => 'logins', 'action' => '/add'));
+					 echo $this->Html->link('Login', array('controller' => 'users', 'action' => '/login'));
 					?>
 				</div>						
 				</div>
