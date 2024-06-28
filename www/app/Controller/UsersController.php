@@ -15,8 +15,6 @@ class UsersController extends AppController {
                 return $this->redirect(array('action' => 'login'));
             }
             $this->Flash->error(('Usuário existente..'));
-            // $this->flash('Usuário existente.', array('action' => 'login'));
-
         }
 }
 
@@ -26,15 +24,16 @@ class UsersController extends AppController {
                 return $this->redirect($this->Auth->redirectUrl());
             } 
             $this->Flash->error(('Incorrect password or email.'));
-            // $this->flash('Nome de usuário ou senha incorretos.', array('action' => 'login'));
-            // $this->Session->setFlash('Usuário ou senha inválidos.', 'default', array(), 'auth');
-
         }
     }
 
     public function logout() {
         $this->redirect($this->Auth->logout());
     }
-
+    
+   //ações permtiidas sem autenticação
+   public function beforeFilter() {
+    $this->Auth->allow('login', 'add'); 
+}
 }
 ?>
