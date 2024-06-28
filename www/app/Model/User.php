@@ -1,62 +1,64 @@
 <?php
-App::uses('AppModel', 'Model');
+App::uses("SimplePasswordHasher", "Controller/Component/Auth");
 
-class User extends AppModel{
-    // public $validate = array(
-    //     'name' => array(
-    //         'minLength' => array(
-    //             'rule' => array('minLength', '2'),
-    //         ),
-    //             'notBlank' => array(
-    //                 'rule' => array('notBlank'),
-    //                 // 'message' => 'Your Name is obrigatory'
-    //             )
-    //     ),
-    //     'email' => array(
-    //         'rule' => 'email',
-    //         'message' => 'Email invalid'
-    //     ),
-    //     'password' => array(
-    //         'rule' => 'password',
-    //         'message' => 'Password invalid'
-    //     ),
-    // );
-
-
+class User extends AppModel
+{
     public $validate = array(
-        'name' => array(
+        'nome' => array(
             'minLength' => array(
-                'rule' => array('minLength', '2'),
-            ),
-                'notBlank' => array(
-                    'rule' => array('notBlank'),
-                    'message' => 'Your Name is obrigatory'
-                )
+                'rule' => array('minLength', '3'),
+                'message' => 'Your name must be at least 3 characters long.',
+            )
         ),
         'email' => array(
-            'required' => array(
-                'rule' => 'notBlank',
-                'message' => 'Email é obrigatório'
-            ),
-            'valid' => array(
+            'email' => array(
                 'rule' => 'email',
-                'message' => 'Por favor, insira um email válido'
+                'message' => 'Invalid email.'
+            ),
+            'unique' => array(
+                'rule' => 'isUnique',
+                'message' => 'Email already registered.'
             )
         ),
-        'password' => array(
-            'required' => array(
-                'rule' => 'notBlank', 
-                //posso colocar o regex aq tbm
-                'message' => 'Senha é obrigatória'
+        'senha' => array(
+            'minLength' => array(
+                'rule' => array('minLength', '8'),
+                'message' => 'Your password must be at least 8 characters long.',
+            ),
+            'pattern' => array(
+                'rule' => array('custom', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'),
+                'message' => 'Your password must contain at least one uppercase letter, one lowercase letter, and one number.',
+            ),
+        ),
+        'confirmar_senha' => array(
+            'matchPasswords' => array(
+                'rule' => array('matchPasswords'),
+                'message' => 'Suas senhas devem conresponder',
             )
-        )
+        ),
     );
-    //criptografa a senha
-    public function beforeSave($options = array()) {
+ 
+    //criptografa a senha / fora 1 
+    // public function beforeSave($options = array()) {
+    //     if (isset($this->data[$this->alias]['password'])) {
+    //         $this->data[$this->alias]['password'] = password_hash($this->data[$this->alias]['password'], PASSWORD_DEFAULT);
+    //     }
+    //     return true;
+    // }
+    public function beforeSave($options = array())
+    {
         if (isset($this->data[$this->alias]['password'])) {
-            $this->data[$this->alias]['password'] = password_hash($this->data[$this->alias]['password'], PASSWORD_DEFAULT);
+            $passwordHasher = new SimplePasswordHasher();
+            $this->data[$this->alias]['password'] = $passwordHasher->hash($this->data[$this->alias]['password']);
         }
         return true;
+    }
+
+    public function matchPasswords($check) {
+        $confirmPassword = array_values($check)[0];
+        $password = $this->data[$this->alias]['password'];
+    
+        return $confirmPassword === $password;
     }
 }
 ?>

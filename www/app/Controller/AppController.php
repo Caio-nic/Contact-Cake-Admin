@@ -31,4 +31,25 @@ App::uses('Controller', 'Controller');
  * @link		https://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+    public $components = array(
+        'Auth' => array(
+            'authenticate' => array(
+                'Form' => array(
+                    'userModel' => 'User',
+                    'fields' => array('email' => 'email', 'password' => 'senha')
+                    // 'passwordHasher' => array ('classname' => 'Simple', 'hashType',)
+                )
+            ),
+            'loginAction' => array('controller' => 'users', 'action' => 'login'),
+            'loginRedirect' => array('controller' => 'messages', 'action' => 'index'),
+            'loginError' => 'Nome de usuário ou senha incorretos.',
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+            'authError' => 'Você não tem permissão para acessar esta página.',
+            'authorize' => array('Controller') // Autorização baseada em controlador
+        )
+    );
+    public function beforeFilter() {
+        $this->Auth->allow('login', 'add'); 
+    }
 }
