@@ -33,22 +33,26 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
 
     public $components = array(
+        'Session',
         'Auth' => array(
             'authenticate' => array(
                 'Form' => array(
                     'userModel' => 'User',
-                    'fields' => array('email' => 'email', 'password' => 'senha')
+                    'fields' => array('username' => 'email', 'password' => 'password') 
                     // 'passwordHasher' => array ('classname' => 'Simple', 'hashType',)
                 )
             ),
             'loginAction' => array('controller' => 'users', 'action' => 'login'),
-            'loginRedirect' => array('controller' => 'messages', 'action' => 'index'),
+            'loginRedirect' => array('controller' => 'contacts', 'action' => 'index'),
             'loginError' => 'Nome de usuário ou senha incorretos.',
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-            'authError' => 'Você não tem permissão para acessar esta página.',
-            'authorize' => array('Controller') // Autorização baseada em controlador
-        )
+            // 'authorize' => array('Controller'), 
+            'authError' => 'Você precisa estar logado para acessar essa página.',
+        
+        ),
+        'Flash'
     );
+    //ações permtiidas sem autenticação
     public function beforeFilter() {
         $this->Auth->allow('login', 'add'); 
     }

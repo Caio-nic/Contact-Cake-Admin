@@ -4,7 +4,6 @@ App::uses("AppController","Controller");
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    public $components = array('Session', 'Auth');
 
     protected function index() {
   }
@@ -15,7 +14,9 @@ class UsersController extends AppController {
                 $this->Flash->success('Login salvo');
                 return $this->redirect(array('action' => 'login'));
             }
-            $this->Session->setFlash('Não foi possível salvar o usuário. Por favor, tente novamente.');
+            $this->Flash->error(('Usuário existente..'));
+            // $this->flash('Usuário existente.', array('action' => 'login'));
+
         }
 }
 
@@ -24,8 +25,9 @@ class UsersController extends AppController {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirectUrl());
             } 
-            $this->Session->setFlash('Usuário ou senha inválidos.', 'default', array(), 'auth');
+            $this->Flash->error(('Incorrect password or email.'));
             // $this->flash('Nome de usuário ou senha incorretos.', array('action' => 'login'));
+            // $this->Session->setFlash('Usuário ou senha inválidos.', 'default', array(), 'auth');
 
         }
     }
