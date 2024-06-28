@@ -16,11 +16,14 @@
                 </tr>
                 <?php foreach ($contacts as $contact) : ?>
                     <tr>
-                        <td><?php echo $this->Html->link(
+                        <td>
+                            <?php echo $this->Html->link(
                                 $contact['Contact']['name'],
                                 array('controller' => 'contacts', 'action' => 'view', $contact['Contact']['id'])
                             ); ?></td>
-                        <td><?php echo $contact['Contact']['email']; ?></td>
+                        <td>
+                            <?php echo $contact['Contact']['email']; ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </table>
