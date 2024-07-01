@@ -52,8 +52,5 @@ class AppController extends Controller {
         ),
         'Flash'
     );
-    //ações permtiidas sem autenticação
-    public function beforeFilter() {
-        $this->Auth->allow('login', 'add'); 
-    }
+
 }

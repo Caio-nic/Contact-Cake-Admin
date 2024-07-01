@@ -7,12 +7,10 @@
 
 <body>
     <div class="container">
-        <aside >
-            <a href="/users/logout">Logout</a>
-        </aside>
         <section class="content_section">
             <div class="message_container">
                 <div>
+                    <a href="/contacts">voltar</a>
                     <p><?php echo ($contact['Contact']['name']); ?></p>
                     <p><?php echo ($contact['Contact']['email']); ?></p>
                 </div>

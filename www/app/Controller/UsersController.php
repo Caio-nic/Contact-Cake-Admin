@@ -30,10 +30,11 @@ class UsersController extends AppController {
     public function logout() {
         $this->redirect($this->Auth->logout());
     }
-    
+
    //ações permtiidas sem autenticação
    public function beforeFilter() {
     $this->Auth->allow('login', 'add'); 
+    }
 }
-}
+
 ?>
