@@ -16,8 +16,7 @@ class UsersController extends AppController {
             }
             $this->Flash->error(('Usuário existente..'));
         }
-}
-
+    }
     public function login() {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
@@ -26,7 +25,6 @@ class UsersController extends AppController {
             $this->Flash->error(('Incorrect password or email.'));
         }
     }
-
     public function logout() {
         $this->redirect($this->Auth->logout());
     }

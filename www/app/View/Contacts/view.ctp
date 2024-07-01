@@ -2,13 +2,15 @@
 <html>
 
 <head>
-    <?php echo $this->Html->charset(); ?>
+    <?php echo $this->Html->charset(); 
+          echo $this->fetch('css');	
+          echo $this->Html->css('contact');
+    ?>
 </head>
 
 <body>
     <div class="container">
-        <section class="content_section">
-            <div class="message_container">
+            <div class="content_container">
                 <div>
                     <a href="/contacts">voltar</a>
                     <p><?php echo ($contact['Contact']['name']); ?></p>
@@ -16,6 +18,5 @@
                 </div>
                 <p class="contact"><?php echo ($contact['Contact']['contact']); ?></p>
             </div>
-        </section>
     </div>
 </body>
