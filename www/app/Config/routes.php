@@ -46,3 +46,8 @@ Router::connect('/register', array('controller' => 'users', 'action' => 'add'));
  * the built-in default routes.
  */
 	require CAKE . 'Config' . DS . 'routes.php';
+	
+	
+#test for api
+Router::mapResources(array('contacts'));
+Router::parseExtensions('json');

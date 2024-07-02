@@ -16,7 +16,7 @@
                     <p><?php echo ($contact['Contact']['name']); ?></p>
                     <p><?php echo ($contact['Contact']['email']); ?></p>
                 </div>
-                <p class="contact"><?php echo ($contact['Contact']['contact']); ?></p>
+                <p><?php echo ($contact['Contact']['message']); ?></p>
             </div>
     </div>
 </body>
